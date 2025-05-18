@@ -24,8 +24,7 @@ install from source:
 
 ```bash
 git clone https://github.com/yourusername/edgex-js-sdk.git
-cd edgex-js-sdk
-npm install
+
 ```
 ```
 
@@ -33,8 +32,7 @@ npm install
 
 ```bash
 git clone https://github.com/yourusername/edgex-js-sdk.git
-cd edgex-js-sdk
-npm install
+
 ```
 
 ## Usage
