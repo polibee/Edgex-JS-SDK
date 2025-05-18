@@ -40,7 +40,7 @@ git clone https://github.com/polibee/Edgex-JS-SDK.git
 
 ```javascript
 // Import the entire SDK
-import edgex from 'edgex-js-sdk';
+import edgex from 'esm-sdk';
 
 // Or import specific components
 import { NewClient, WithBaseURL } from 'edgex-js-sdk';
@@ -52,16 +52,16 @@ import { NewClient, WithBaseURL } from 'edgex-js-sdk';
 
 ```javascript
 // 导入整个SDK
-import edgex from 'edgex-js-sdk';
+import edgex from 'esm-sdk';
 
 // 或者导入特定组件
-import { NewClient, WithBaseURL } from 'edgex-js-sdk';
+import { NewClient, WithBaseURL } from 'esm-sdk';
 ```
 
 ### Basic Usage
 
 ```javascript
-import edgex from 'edgex-js-sdk';
+import edgex from 'esm-sdk';
 
 // Create a new client instance
 const client = edgex.NewClient(
@@ -87,7 +87,7 @@ getServerTime();
 ### 基本用法
 
 ```javascript
-import edgex from 'edgex-js-sdk';
+import edgex from 'esm-sdk';
 
 // 创建一个新的客户端实例
 const client = edgex.NewClient(
