@@ -23,15 +23,14 @@ This is the ESM (ECMAScript Module) version of the EdgeX JavaScript SDK. This ve
 install from source:
 
 ```bash
-git clone https://github.com/yourusername/edgex-js-sdk.git
-
+git clone https://github.com/polibee/Edgex-JS-SDK.git
 ```
 ```
 
 ## 安装
 
 ```bash
-git clone https://github.com/yourusername/edgex-js-sdk.git
+git clone https://github.com/polibee/Edgex-JS-SDK.git
 
 ```
 
