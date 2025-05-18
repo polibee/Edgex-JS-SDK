@@ -1,233 +1,134 @@
-# EdgeX JavaScript SDK
+# EdgeX JavaScript SDK (ESM Version)
 
-This is a JavaScript SDK for interacting with the EdgeX exchange API, based on the official Go SDK implementation.
+This is the ESM (ECMAScript Module) version of the EdgeX JavaScript SDK. This version allows you to use the SDK in modern JavaScript environments that support ES modules.
 
-# EdgeX JavaScript SDK
+# EdgeX JavaScript SDK (ESM 版本)
 
-这是一个用于与EdgeX交易所API交互的JavaScript SDK，基于官方的Go SDK实现。
+这是EdgeX JavaScript SDK的ESM（ECMAScript模块）版本。此版本允许您在支持ES模块的现代JavaScript环境中使用SDK。
+
+## Differences from CommonJS Version
+
+- Uses `import/export` syntax instead of `require/module.exports`
+- File extensions must be explicitly specified in imports (e.g., `import x from './y.js'`)
+- Located in a separate `esm/` directory, separate from the original CommonJS version
+
+## 与CommonJS版本的区别
+
+- 使用`import/export`语法而非`require/module.exports`
+- 文件扩展名在导入时必须明确指定（例如：`import x from './y.js'`）
+- 位于单独的`esm/`目录中，与原始CommonJS版本分开
 
 ## Installation
 
-```bash
-npm install edgex-js-sdk
-```
-
-Or install from source:
+install from source:
 
 ```bash
 git clone https://github.com/yourusername/edgex-js-sdk.git
 cd edgex-js-sdk
 npm install
+```
 ```
 
 ## 安装
 
 ```bash
-npm install edgex-js-sdk
-```
-
-或者从源码安装：
-
-```bash
 git clone https://github.com/yourusername/edgex-js-sdk.git
 cd edgex-js-sdk
 npm install
 ```
 
-## Quick Start
+## Usage
+
+### ESM Import
 
 ```javascript
-const edgex = require('edgex-js-sdk');
+// Import the entire SDK
+import edgex from 'edgex-js-sdk';
 
-// Create a new client
+// Or import specific components
+import { NewClient, WithBaseURL } from 'edgex-js-sdk';
+```
+
+### 使用方法
+
+### ESM导入
+
+```javascript
+// 导入整个SDK
+import edgex from 'edgex-js-sdk';
+
+// 或者导入特定组件
+import { NewClient, WithBaseURL } from 'edgex-js-sdk';
+```
+
+### Basic Usage
+
+```javascript
+import edgex from 'edgex-js-sdk';
+
+// Create a new client instance
 const client = edgex.NewClient(
   edgex.WithBaseURL('https://testnet.edgex.exchange'),
   edgex.WithAccountID(12345),
   edgex.WithStarkPrivateKey('your-stark-private-key')
 );
 
-// Create context
-const main = async () => {
+// Get server time
+async function getServerTime() {
   try {
-    // Get account assets
-    const assets = await client.Asset.getAccountAsset();
-    
-    // Print asset information
-    console.log('Account Assets:', assets.data);
+    const response = await client.Metadata.getServerTime();
+    console.log('Server time:', response.data);
+    return response.data;
   } catch (error) {
-    console.error('Error:', error.message);
+    console.error('Error getting server time:', error.message);
   }
-};
+}
 
-main();
+getServerTime();
 ```
 
-## 快速开始
+### 基本用法
 
 ```javascript
-const edgex = require('edgex-js-sdk');
+import edgex from 'edgex-js-sdk';
 
-// 创建一个新的客户端
+// 创建一个新的客户端实例
 const client = edgex.NewClient(
   edgex.WithBaseURL('https://testnet.edgex.exchange'),
   edgex.WithAccountID(12345),
   edgex.WithStarkPrivateKey('your-stark-private-key')
 );
 
-// 创建上下文
-const main = async () => {
+// 获取服务器时间
+async function getServerTime() {
   try {
-    // 获取账户资产
-    const assets = await client.Asset.getAccountAsset();
-    
-    // 打印资产信息
-    console.log('Account Assets:', assets.data);
+    const response = await client.Metadata.getServerTime();
+    console.log('服务器时间:', response.data);
+    return response.data;
   } catch (error) {
-    console.error('Error:', error.message);
+    console.error('获取服务器时间出错:', error.message);
   }
-};
+}
 
-main();
+getServerTime();
 ```
 
-## Available APIs
+## Examples
 
-The SDK currently supports the following API modules:
+For complete examples, please refer to `examples/esm-basic-usage.js`.
 
-- **Account API**: Manage account positions, get position transaction records, handle collateral transactions
-  - Get account positions
-  - Get position by contract ID
-  - Get position transaction history
-  - Get collateral transaction details
+## 示例
 
-- **Asset API**: Handle asset management and withdrawals
-  - Get asset orders (paginated)
-  - Get coin rates
-  - Manage withdrawals (normal, cross-chain, and fast)
-  - Get withdrawal records and signature information
-  - Check withdrawable amounts
+完整示例请参考 `examples/esm-basic-usage.js`。
 
-- **Funding API**: Manage funding operations and account balances
-  - Handle funding transactions
-  - Manage funding accounts
+## Notes
 
-- **Metadata API**: Access exchange system information
-  - Get server time
-  - Get exchange metadata (trading pairs, contracts, etc.)
+- Ensure your environment supports ES modules
+- If using in Node.js, make sure your package.json has `"type": "module"` set, or use the `.mjs` file extension
+- When using in browsers, ensure you use the `<script type="module">` tag
 
-- **Order API**: Comprehensive order management
-  - Create and cancel orders
-  - Get active orders
-  - Get order fill transactions
-  - Calculate maximum order size
-  - Manage order history
+## 注意事项
 
-- **Quote API**: Access market data and pricing
-  - Get multi-contract kline data
-  - Get orderbook depth
-  - Access real-time market quotes
-
-- **Transfer API**: Handle asset transfers
-  - Create transfer-out orders
-  - Get transfer records (in/out)
-  - Check available withdrawal amounts
-  - Manage transfer history
-
-## 可用的API
-
-SDK目前支持以下API模块：
-
-- **Account API**：管理账户仓位，获取仓位交易记录，处理抵押品交易
-  - 获取账户仓位
-  - 通过合约ID获取仓位
-  - 获取仓位交易历史
-  - 获取抵押品交易详情
-
-- **Asset API**：处理资产管理和提现
-  - 获取资产订单（分页）
-  - 获取币种汇率
-  - 管理提现（普通、跨链和快速）
-  - 获取提现记录和签名信息
-  - 检查可提现金额
-
-- **Funding API**：管理资金操作和账户余额
-  - 处理资金交易
-  - 管理资金账户
-
-- **Metadata API**：访问交易所系统信息
-  - 获取服务器时间
-  - 获取交易所元数据（交易对、合约等）
-
-- **Order API**：全面的订单管理
-  - 创建和取消订单
-  - 获取活跃订单
-  - 获取订单成交交易
-  - 计算最大订单大小
-  - 管理订单历史
-
-- **Quote API**：访问市场数据和定价
-  - 获取多合约K线数据
-  - 获取订单簿深度
-  - 访问实时市场报价
-
-- **Transfer API**：处理资产转账
-  - 创建转出订单
-  - 获取转账记录（转入/转出）
-  - 检查可用提现金额
-  - 管理转账历史
-
-## WebSocket Support
-
-The SDK provides WebSocket support for receiving real-time market data and account updates:
-
-```javascript
-// Connect to public WebSocket
-await client.ws.connectPublic();
-
-// Subscribe to BTC-USDC ticker updates
-await client.ws.subscribeMarketTicker('BTC-USDC', (message) => {
-  const data = JSON.parse(message.toString());
-  console.log('Ticker update:', data);
-});
-
-// Connect to private WebSocket (requires authentication)
-await client.ws.connectPrivate();
-
-// Subscribe to account updates
-await client.ws.subscribeAccountUpdate((message) => {
-  const data = JSON.parse(message.toString());
-  console.log('Account update:', data);
-});
-```
-
-## WebSocket支持
-
-SDK提供了WebSocket支持，用于接收实时市场数据和账户更新：
-
-```javascript
-// 连接到公共WebSocket
-await client.ws.connectPublic();
-
-// 订阅BTC-USDC的行情更新
-await client.ws.subscribeMarketTicker('BTC-USDC', (message) => {
-  const data = JSON.parse(message.toString());
-  console.log('行情更新:', data);
-});
-
-// 连接到私有WebSocket（需要认证）
-await client.ws.connectPrivate();
-
-// 订阅账户更新
-await client.ws.subscribeAccountUpdate((message) => {
-  const data = JSON.parse(message.toString());
-  console.log('账户更新:', data);
-});
-```
-
-## ESM Support
-
-This SDK also provides an ESM (ECMAScript Module) version. For more information, please refer to the [ESM README](./esm/README.md).
-
-## ESM支持
-
-本SDK还提供了ESM（ECMAScript模块）版本。更多信息，请参考[ESM README](./esm/README.md)。****
+- 确保您的环境支持ES模块
+- 如果在Node.js中使用，请确保您的package.json中设置了`"type": "module"`，或者使用`.mjs`文件扩展名
+- 在浏览器中使用时，请确保使用`<script type="module">`标签
