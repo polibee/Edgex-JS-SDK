@@ -43,7 +43,7 @@ git clone https://github.com/polibee/Edgex-JS-SDK.git
 import edgex from 'esm-sdk';
 
 // Or import specific components
-import { NewClient, WithBaseURL } from 'edgex-js-sdk';
+import { NewClient, WithBaseURL } from 'esm-sdk';
 ```
 
 ### 使用方法
